@@ -1,13 +1,30 @@
+const { User } = require('../models/user');
+const { ApiError } = require('../middleware/apiError');
+const httpStatus = require('http-status');
 
-
-const hello = async () => {
+const createUser = async (email, password) => {
     try {
-        return 'HELLO !!!';
-    } catch (error) {
+        if (await User.emailTaken(email)) {
+            throw new ApiError(httpStatus.BAD_REQUEST, 'sorry email taken');
+        }
 
+        const user = new User({
+            email,
+            password
+        });
+        await user.save();
+        return user;
+    } catch (error) {
+        throw error;
     }
 }
 
+const genAuthToken = (user) => {
+    const token = user.generateAuthToken();
+    return token;
+}
+
 module.exports = {
-    hello
+    createUser,
+    genAuthToken
 }
