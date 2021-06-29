@@ -9,12 +9,20 @@ const allRights = {
 
 let grantObject = {
     admin: {
-        profile: allRights
+        profile: allRights,
+        brand: allRights,
+        product: allRights,
     },
     user: {
         profile: {
             'read:own': ['*', '!password', '!_id'],
             'update:own': ['*', '!password', '!_id'],
+        },
+        brand: {
+            'read:any': ['*'],
+        },
+        product: {
+            'read:any': ['*']
         }
     }
 }
