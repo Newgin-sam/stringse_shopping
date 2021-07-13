@@ -26,7 +26,7 @@ export const productsBySort = ({ limit, sortBy, order, where }) => {
                     return false
             }
         } catch (error) {
-            console.log(error)
+            dispatch(actions.errorGlobal(error.message))
         }
     }
 }
