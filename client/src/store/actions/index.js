@@ -5,7 +5,12 @@ import {
     SUCCESS_GLOBAL,
     CLEAR_NOTIFICATIONS,
     AUTH_USER,
-    SIGN_OUT
+    SIGN_OUT,
+    UPDATE_USER_PROFILE,
+    USER_CHANGE_EMAIL,
+    GET_PROD_BY_PAGINATE,
+    REMOVE_PRODUCT,
+    GET_ALL_BRANDS
 } from '../types';
 
 //user
@@ -18,7 +23,17 @@ export const userSignOut = () => ({
     type: SIGN_OUT
 })
 
-//products
+export const userUpdateProfile = (userdata) => ({
+    type: UPDATE_USER_PROFILE,
+    payload: userdata
+})
+
+export const userchangeEmail = (data) => ({
+    type: USER_CHANGE_EMAIL,
+    payload: data
+})
+
+//products 
 export const productsBySold = (data) => ({
     type: GET_PROD_BY_SOLD,
     payload: data
@@ -28,6 +43,22 @@ export const productsBySold = (data) => ({
 export const productsByDate = (data) => ({
     type: GET_PROD_BY_DATE,
     payload: data
+})
+
+export const productsByPaginate = (data) => ({
+    type: GET_PROD_BY_PAGINATE,
+    payload: data
+})
+
+export const productRemove = () => ({
+    type: REMOVE_PRODUCT
+})
+
+//brands
+
+export const getAllBrands = (brands) => ({
+    type: GET_ALL_BRANDS,
+    payload: brands
 })
 
 //notifications 
@@ -48,3 +79,4 @@ export const clearNotifications = () => {
         })
     }
 }
+

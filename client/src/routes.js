@@ -9,6 +9,11 @@ import RegisterLogin from './components/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { userIsAuth, userSignOut } from './store/actions/user.actions';
 import Loader from './utils/loader';
+import Dashboard from './components/dashboard';
+import authGuard from './hoc/authGuard';
+import UserInfo from './components/dashboard/user/info';
+import AdminProducts from './components/dashboard/admin/products';
+import AddProduct from './components/dashboard/admin/products/addedit/add';
 
 
 
@@ -47,6 +52,10 @@ const Routes = (props) => {
           />
           <MainLayout>
             <Switch>
+              <Route path='/dashboard/admin/add_products' component={authGuard(AddProduct)} />
+              <Route path='/dashboard/admin/admin_products' component={authGuard(AdminProducts)} />
+              <Route path='/dashboard/user/user_info' component={authGuard(UserInfo)} />
+              <Route path='/dashboard' component={authGuard(Dashboard)} />
               <Route path='/sign_in' component={RegisterLogin} />
               <Route path='/' component={Home} />
             </Switch>

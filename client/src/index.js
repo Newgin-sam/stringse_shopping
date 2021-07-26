@@ -5,6 +5,7 @@ import Routes from './routes';
 import ReduxStore from './store';
 import { Provider } from 'react-redux';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './resources/styles/styles.css'
 
 ReactDOM.render(

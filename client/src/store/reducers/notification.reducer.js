@@ -1,6 +1,7 @@
 import {
     CLEAR_NOTIFICATIONS,
     ERROR_GLOBAL,
+    REMOVE_PRODUCT,
     SUCCESS_GLOBAL
 } from '../types';
 
@@ -15,6 +16,9 @@ export default function notificationsReducer(state = {}, action) {
 
         case CLEAR_NOTIFICATIONS:
             return {}
+
+        case REMOVE_PRODUCT:
+            return { ...state, removeArticle: true }
 
         default:
             return state
