@@ -62,6 +62,15 @@ const productController = {
         } catch (error) {
             throw error;
         }
+    },
+    async picUpload(req, res, next) {
+        try {
+            const pic = await productService.picUpload(req)
+            res.json(pic)
+        } catch (error) {
+            throw error;
+        }
+
     }
 
 }

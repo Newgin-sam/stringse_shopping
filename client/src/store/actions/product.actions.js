@@ -57,3 +57,31 @@ export const productRemove = (id) => {
         }
     }
 }
+
+
+
+export const productAdd = (data) => {
+    return async (dispatch) => {
+        try {
+            const product = await axios.post(`/api/products/`, data, getAuthHeader())
+
+            dispatch(actions.productAdd(product.data))
+            dispatch(actions.successGlobal());
+        } catch (error) {
+            dispatch(actions.errorGlobal(error.response.data.message))
+        }
+    }
+}
+
+export const productsById = (id) => {
+    return async (dispatch) => {
+        try {
+            const product = await axios.get(`/api/products/product/${id}`);
+
+            dispatch(actions.productsById(product.data));
+            // dispatch(actions.successGlobal());
+        } catch (error) {
+            dispatch(actions.errorGlobal(error.response.data.message))
+        }
+    }
+}

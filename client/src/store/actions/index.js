@@ -10,7 +10,10 @@ import {
     USER_CHANGE_EMAIL,
     GET_PROD_BY_PAGINATE,
     REMOVE_PRODUCT,
-    GET_ALL_BRANDS
+    GET_ALL_BRANDS,
+    PRODUCT_ADD,
+    CLEAR_PRODUCT_ADD,
+    GET_PROD_BY_ID
 } from '../types';
 
 //user
@@ -52,6 +55,21 @@ export const productsByPaginate = (data) => ({
 
 export const productRemove = () => ({
     type: REMOVE_PRODUCT
+})
+
+export const productAdd = (product) => ({
+    type: PRODUCT_ADD,
+    payload: product
+})
+
+
+export const clearProductAdd = () => ({
+    type: CLEAR_PRODUCT_ADD
+})
+
+export const productsById = (product) => ({
+    type: GET_PROD_BY_ID,
+    payload: product
 })
 
 //brands

@@ -11,7 +11,7 @@ import { productsByPaginate, productRemove } from '../../../../store/actions/pro
 import ProductsTable from './productsTable';
 
 
-const defaultValues = { keywords: '', brand: [], min: 0, max: 5000, frets: [], page: 2 }
+const defaultValues = { keywords: '', brand: [], min: 0, max: 5000, frets: [], page: 1 }
 
 const AdminProducts = (props) => {
     const [removeModal, setRemoveModal] = useState(false);

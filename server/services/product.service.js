@@ -3,6 +3,16 @@ const { ApiError } = require('../middleware/apiError');
 const httpStatus = require('http-status');
 const mongoose = require('mongoose');
 
+
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: 'shadow-eye',
+    api_key: '532579486945737',
+    api_secret: `${process.env.CN_API_SECRET}`,
+    secure: true
+});
+
 const addProduct = async (body) => {
     try {
         const product = new Product({
@@ -145,6 +155,20 @@ const paginateProducts = async (req) => {
     }
 }
 
+const picUpload = async (req) => {
+    try {
+        const upload = await cloudinary.uploader.upload(req.files.file.path, {
+            public_id: `${Date.now()}`,
+            folder: 'strings_shopping'
+        })
+        return {
+            public_id: upload.public_id,
+            url: upload.url
+        }
+    } catch (error) {
+        throw error;
+    }
+}
 
 module.exports = {
     addProduct,
@@ -152,5 +176,6 @@ module.exports = {
     updateProductById,
     deleteProductById,
     allProduct,
-    paginateProducts
+    paginateProducts,
+    picUpload
 }
