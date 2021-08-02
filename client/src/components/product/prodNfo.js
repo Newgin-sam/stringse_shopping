@@ -5,11 +5,34 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 
+import { userAddToCart } from '../../store/actions/user.actions';
+import AddToCartHandler from '../../utils/addToCartHandle';
+
 import { useSelector, useDispatch } from 'react-redux';
 
 
 const ProdNfo = (props) => {
 
+    const [modal, setModal] = useState(false)
+    const [errorType, setErrorType] = useState(null)
+    const user = useSelector(state => state.users)
+    const dispatch = useDispatch();
+
+    const handleAddToCart = (item) => {
+        if (!user.auth) {
+            setModal(true);
+            setErrorType('auth');
+            return false
+        }
+        if (!user.data.verified) {
+            setModal(true);
+            setErrorType('verify')
+            return false;
+        }
+        dispatch(userAddToCart(item));
+    }
+
+    const handleClose = () => setModal(false);
 
     const showProdTags = (detail) => (
         <div className="product_tags">
@@ -48,7 +71,7 @@ const ProdNfo = (props) => {
             <div className="cart">
                 <StringsButton
                     type="add_to_cart_link"
-                    runAction={() => alert('added to cart')}
+                    runAction={() => handleAddToCart(detail)}
                 />
             </div>
         </div>
@@ -80,6 +103,11 @@ const ProdNfo = (props) => {
             {showProdActions(detail)}
             {showProdSpecs(detail)}
 
+            <AddToCartHandler
+                modal={modal}
+                errorType={errorType}
+                handleClose={handleClose}
+            />
 
         </div>
     )

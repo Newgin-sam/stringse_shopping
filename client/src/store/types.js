@@ -21,3 +21,4 @@ export const AUTH_USER = 'AUTH_USER';
 export const SIGN_OUT = 'SIGN_OUT';
 export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
 export const USER_CHANGE_EMAIL = 'USER_CHANGE_EMAIL';
+export const USER_ADD_TO_CART = 'USER_ADD_TO_CART';

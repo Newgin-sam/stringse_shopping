@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { userAddToCart } from '../../store/actions/user.actions';
+import AddToCartHandler from '../addToCartHandle';
 import { renderCardImage, StringsButton } from '../tools';
 
 const Card = (props) => {
 
+    const [modal, setModal] = useState(false)
+    const [errorType, setErrorType] = useState(null)
+    const user = useSelector(state => state.users)
+    const dispatch = useDispatch();
+
+    const handleClose = () => setModal(false);
+
     const handleAddToCart = (item) => {
-        alert('add to cart')
+        if (!user.auth) {
+            setModal(true);
+            setErrorType('auth');
+            return false
+        }
+        if (!user.data.verified) {
+            setModal(true);
+            setErrorType('verify')
+            return false;
+        }
+        dispatch(userAddToCart(item));
     }
 
 
@@ -54,6 +74,12 @@ const Card = (props) => {
 
 
             </div>
+
+            <AddToCartHandler
+                modal={modal}
+                errorType={errorType}
+                handleClose={handleClose}
+            />
 
         </div>
     )
