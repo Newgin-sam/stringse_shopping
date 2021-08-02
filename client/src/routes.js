@@ -15,6 +15,8 @@ import UserInfo from './components/dashboard/user/info';
 import AdminProducts from './components/dashboard/admin/products';
 import AddProduct from './components/dashboard/admin/products/addedit/add';
 import EditProduct from './components/dashboard/admin/products/addedit/edit';
+import Shop from './components/shop';
+import ProductDetail from './components/product';
 
 
 
@@ -53,11 +55,13 @@ const Routes = (props) => {
           />
           <MainLayout>
             <Switch>
-              <Route path='/dashboard/admin/edit_products/:id' component={authGuard(EditProduct)} />
+              <Route path='/dashboard/admin/edit_product/:id' component={authGuard(EditProduct)} />
               <Route path='/dashboard/admin/add_products' component={authGuard(AddProduct)} />
               <Route path='/dashboard/admin/admin_products' component={authGuard(AdminProducts)} />
               <Route path='/dashboard/user/user_info' component={authGuard(UserInfo)} />
               <Route path='/dashboard' component={authGuard(Dashboard)} />
+              <Route path='/product_detail/:id' component={ProductDetail} />
+              <Route path='/shop' component={Shop} />
               <Route path='/sign_in' component={RegisterLogin} />
               <Route path='/' component={Home} />
             </Switch>

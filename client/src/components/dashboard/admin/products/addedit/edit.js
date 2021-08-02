@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import PicUpload from './upload';
 import PicViewer from './picViewer';
-import DashboardLayout from 'hoc/dashboardLayout';
+import DashboardLayout from '../../../../../hoc/dashboardLayout';
 
 import { useFormik } from 'formik';
-import { errorHelper } from 'utils/tools';
-import Loader from 'utils/loader'
+import { errorHelper } from '../../../../../utils/tools';
+import Loader from '../../../../../utils/loader'
 import { validation, formValues, getValuesToEdit } from './formValues';
 
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBrands } from 'store/actions/brands.actions';
-import { productAdd, productsById } from 'store/actions/product.actions';
+import { getAllBrands } from '../../../../../store/actions/brands.actions';
+import { productAdd, productsById, productEdit } from '../../../../../store/actions/product.actions';
 // import { clearProductAdd } from 'store/actions/index'
 
 import {
@@ -23,11 +23,12 @@ import {
     FormControl,
     FormHelperText
 } from '@material-ui/core';
+import { clearCurrentProduct } from '../../../../../store/actions';
 
 
 const AddProduct = (props) => {
     const [values, setValues] = useState(formValues);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const products = useSelector(state => state.products);
     const notifications = useSelector(state => state.notifications);
     const brands = useSelector(state => state.brands);
@@ -44,7 +45,7 @@ const AddProduct = (props) => {
 
     const handleSubmit = (values) => {
         setLoading(true);
-        dispatch(productAdd(values))
+        dispatch(productEdit(values, props.match.params.id))
     }
 
 
@@ -62,13 +63,10 @@ const AddProduct = (props) => {
 
 
     useEffect(() => {
-        if (notifications && notifications.success) {
-            props.history.push('/dashboard/admin/admin_products');
-        }
-        if (notifications && notifications.error) {
+        if (notifications) {
             setLoading(false)
         }
-    }, [notifications, props.history])
+    }, [notifications])
 
 
     useEffect(() => {
@@ -82,19 +80,20 @@ const AddProduct = (props) => {
     useEffect(() => {
         if (products && products.byId) {
             setValues(getValuesToEdit(products.byId))
+            setLoading(false)
         }
     }, [products])
 
 
-    // useEffect(()=>{
-    //     return()=>{
-    //         dispatch(clearProductAdd())
-    //     }
-    // },[dispatch])
+    useEffect(() => {
+        return () => {
+            dispatch(clearCurrentProduct())
+        }
+    }, [dispatch])
 
 
     return (
-        <DashboardLayout title="Add product">
+        <DashboardLayout title="Edit Product">
             {loading ?
                 <Loader />
                 :
@@ -239,7 +238,7 @@ const AddProduct = (props) => {
                             color="primary"
                             type="submit"
                         >
-                            Add product
+                            Edit product
                         </Button>
 
                     </form>

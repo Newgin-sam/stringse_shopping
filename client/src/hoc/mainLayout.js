@@ -13,7 +13,6 @@ const MainLayout = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('hello');
         if (notifications && notifications.error) {
 
             const msg = notifications.msg ? notifications.msg : 'Error';

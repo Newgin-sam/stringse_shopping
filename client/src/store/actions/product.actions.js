@@ -79,7 +79,18 @@ export const productsById = (id) => {
             const product = await axios.get(`/api/products/product/${id}`);
 
             dispatch(actions.productsById(product.data));
-            // dispatch(actions.successGlobal());
+        } catch (error) {
+            dispatch(actions.errorGlobal(error.response.data.message))
+        }
+    }
+}
+
+export const productEdit = (values, id) => {
+    return async (dispatch) => {
+        try {
+            await axios.patch(`/api/products/product/${id}`, values, getAuthHeader());
+
+            dispatch(actions.successGlobal('update done!!'));
         } catch (error) {
             dispatch(actions.errorGlobal(error.response.data.message))
         }

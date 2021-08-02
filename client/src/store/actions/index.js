@@ -13,7 +13,8 @@ import {
     GET_ALL_BRANDS,
     PRODUCT_ADD,
     CLEAR_PRODUCT_ADD,
-    GET_PROD_BY_ID
+    GET_PROD_BY_ID,
+    CLEAR_CURRENT_PRODUCT
 } from '../types';
 
 //user
@@ -71,6 +72,11 @@ export const productsById = (product) => ({
     type: GET_PROD_BY_ID,
     payload: product
 })
+
+export const clearCurrentProduct = () => ({
+    type: CLEAR_CURRENT_PRODUCT
+})
+
 
 //brands
 

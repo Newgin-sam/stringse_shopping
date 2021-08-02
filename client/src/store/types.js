@@ -6,6 +6,7 @@ export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 export const PRODUCT_ADD = 'PRODUCT_ADD';
 export const CLEAR_PRODUCT_ADD = 'CLEAR_PRODUCT_ADD';
 export const GET_PROD_BY_ID = 'GET_PROD_BY_ID';
+export const CLEAR_CURRENT_PRODUCT = 'CLEAR_CURRENT_PRODUCT';
 
 //brands
 export const GET_ALL_BRANDS = 'GET_ALL_BRANDS';
