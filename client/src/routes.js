@@ -17,6 +17,7 @@ import AddProduct from './components/dashboard/admin/products/addedit/add';
 import EditProduct from './components/dashboard/admin/products/addedit/edit';
 import Shop from './components/shop';
 import ProductDetail from './components/product';
+import UserCart from './components/dashboard/user/cart';
 
 
 
@@ -58,6 +59,7 @@ const Routes = (props) => {
               <Route path='/dashboard/admin/edit_product/:id' component={authGuard(EditProduct)} />
               <Route path='/dashboard/admin/add_products' component={authGuard(AddProduct)} />
               <Route path='/dashboard/admin/admin_products' component={authGuard(AdminProducts)} />
+              <Route path='/dashboard/user/user_cart' component={authGuard(UserCart)} />
               <Route path='/dashboard/user/user_info' component={authGuard(UserInfo)} />
               <Route path='/dashboard' component={authGuard(Dashboard)} />
               <Route path='/product_detail/:id' component={ProductDetail} />
