@@ -45,6 +45,12 @@ export const userSignIn = (values) => {
 export const userIsAuth = () => {
     return async (dispatch) => {
         try {
+            console.log("userIsAuth");
+
+            const site = await axios.get(`/api/site`);
+
+            dispatch(actions.siteGetVars(site.data))
+
             if (!getTokenCookie()) {
                 throw new Error();
             }
@@ -131,6 +137,21 @@ export const removeFromCart = (position) => {
             const cart = getState().users.cart;
             cart.splice(position, 1);
             dispatch(actions.userAddToCart(cart))
+        } catch (error) {
+            dispatch(actions.errorGlobal(error.response.data.message))
+        }
+    }
+}
+
+export const userPurchaseSuccess = (orderID) => {
+    return async (dispatch) => {
+        try {
+            const user = await axios.post(`/api/transaction/`, {
+                orderID
+            }, getAuthHeader());
+
+            dispatch(actions.successGlobal(`Thank You!!`));
+            dispatch(actions.usepurchaseSuccess(user.data));
         } catch (error) {
             dispatch(actions.errorGlobal(error.response.data.message))
         }

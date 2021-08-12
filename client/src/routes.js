@@ -18,6 +18,7 @@ import EditProduct from './components/dashboard/admin/products/addedit/edit';
 import Shop from './components/shop';
 import ProductDetail from './components/product';
 import UserCart from './components/dashboard/user/cart';
+import ManageSite from './components/dashboard/admin/site';
 
 
 
@@ -56,6 +57,7 @@ const Routes = (props) => {
           />
           <MainLayout>
             <Switch>
+              <Route path="/dashboard/admin/manage_site" component={authGuard(ManageSite)} />
               <Route path='/dashboard/admin/edit_product/:id' component={authGuard(EditProduct)} />
               <Route path='/dashboard/admin/add_products' component={authGuard(AddProduct)} />
               <Route path='/dashboard/admin/admin_products' component={authGuard(AdminProducts)} />

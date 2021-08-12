@@ -15,7 +15,10 @@ import {
     CLEAR_PRODUCT_ADD,
     GET_PROD_BY_ID,
     CLEAR_CURRENT_PRODUCT,
-    USER_ADD_TO_CART
+    USER_ADD_TO_CART,
+    PURCHASE__SUCCESS,
+    GET_SITE_VARS,
+    UPDATE_SITE_VARS
 } from '../types';
 
 //user
@@ -40,6 +43,11 @@ export const userchangeEmail = (data) => ({
 
 export const userAddToCart = (data) => ({
     type: USER_ADD_TO_CART,
+    payload: data
+})
+
+export const usepurchaseSuccess = (data) => ({
+    type: PURCHASE__SUCCESS,
     payload: data
 })
 
@@ -110,3 +118,14 @@ export const clearNotifications = () => {
     }
 }
 
+//site
+
+export const siteGetVars = (vars) => ({
+    type: GET_SITE_VARS,
+    payload: vars
+})
+
+export const updateSiteVars = (vars) => ({
+    type: UPDATE_SITE_VARS,
+    payload: vars
+})

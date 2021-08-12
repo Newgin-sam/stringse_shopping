@@ -4,9 +4,9 @@ import Loader from '../../../utils/loader';
 import CartDetail from './cartDetail';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromCart } from '../../../store/actions/user.actions';
+import { removeFromCart, userPurchaseSuccess } from '../../../store/actions/user.actions';
 
-
+import { PayPalButton } from 'react-paypal-button-v2';
 
 const UserCart = (props) => {
     const [loading, setLoading] = useState(false);
@@ -26,6 +26,45 @@ const UserCart = (props) => {
         });
         return total;
     }
+    const generateUnits = () => (
+        [{
+            description: "Guitars and accessories",
+            amount: {
+                currency_code: "USD",
+                value: calculateTotal(),
+                breakdown: {
+                    item_total: {
+                        currency_code: "USD",
+                        value: calculateTotal()
+                    }
+                }
+            },
+            items: generateItems()
+        }]
+    );
+
+    const generateItems = () => {
+        let items = props.users.cart.map((item) => (
+            {
+                unit_amount: {
+                    currency_code: "USD",
+                    value: item.price
+                },
+                quantity: 1,
+                name: item.model
+            }
+        ));
+        return items
+    }
+
+    useEffect(() => {
+        if (notifications && notifications.success) {
+            props.history.push('/dashboard')
+        }
+        if (notifications && notifications.error) {
+            setLoading(false)
+        }
+    }, [notifications, props.history])
 
 
     return (
@@ -41,6 +80,33 @@ const UserCart = (props) => {
                             Total amount: ${calculateTotal()}
                         </div>
                     </div>
+                    {loading ?
+                        <Loader />
+                        :
+                        <div className="pp_button">
+                            <PayPalButton
+                                options={{
+                                    clientId: "AdDgFfIiVf80cZeLerch4YwIGbi058mb2AOkm0aTpDqKMaWtnHQ0bpdPF5T_m5iY7V_0Qm408FKdi_xe",
+                                    currency: "USD",
+                                    disableFunding: 'credit,card'
+                                }}
+                                createOrder={(data, actions) => {
+                                    return actions.order.create({
+                                        purchase_units: generateUnits()
+                                    })
+                                }}
+                                onSuccess={(details, data) => {
+                                    // console.log(details)
+                                    // console.log(data)
+                                    dispatch(userPurchaseSuccess(details.id))
+                                    setLoading(true);
+                                }}
+                                onCancel={(data) => {
+                                    setLoading(false);
+                                }}
+                            />
+                        </div>
+                    }
                 </>
                 :
                 <div>
