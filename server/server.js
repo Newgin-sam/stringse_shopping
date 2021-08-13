@@ -64,7 +64,7 @@ app.get('/*', (req, res) => {
 
 console.log(process.env.NODE_ENV)
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 8082
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
