@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 
+const fs = require('fs');
+
 const mongoose = require('mongoose');
 const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -47,14 +49,28 @@ app.use((err, req, res, next) => {
     handleError(err, res)
 })
 
+const path = require('path');
 
 app.use(express.static('client/build'));
 if (process.env.NODE_ENV === 'production') {
-    const path = require('path');
     app.get('/*', (req, res) => {
         res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'))
     });
 }
+
+try {
+    const files = fs.readdirSync(path.resolve(__dirname, '../client'));
+
+    // files object contains all files names
+    // log them on console
+    files.forEach(file => {
+        console.log(file);
+    });
+
+} catch (err) {
+    console.log(err);
+}
+
 
 const port = process.env.PORT || 5000
 app.listen(port, () => {
