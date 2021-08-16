@@ -58,20 +58,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-try {
-    const files = fs.readdirSync(path.resolve(__dirname, '../client'));
-
-    // files object contains all files names
-    // log them on console
-    files.forEach(file => {
-        console.log(file);
-    });
-
-} catch (err) {
-    console.log(err);
-}
-
-
 const port = process.env.PORT || 5000
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
